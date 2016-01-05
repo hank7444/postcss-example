@@ -1,0 +1,83 @@
+@import "normalize";
+@import "./folder/car";
+
+
+/* prefix */
+.test {
+	opacity: 1;
+}
+
+a {
+    display: flex;
+    border-radius: 10px;
+}
+
+a {
+    -webkit-border-radius: 5px;
+            border-radius: 5px;
+}
+
+
+
+/* precss */
+$blue: #056ef0;
+$column: 200px;
+
+.menu {
+    width: calc(4 * $column);
+    @media all and (-webkit-min-device-pixel-ratio:0) and (min-resolution: .001dpcm) {
+		margin: 10px;
+    }
+}
+
+.menu_link {
+    background: $blue;
+    width: $column;
+}
+
+@for $i from 1 to 3 {
+    .b-$i { width: $(i)px; }
+}
+
+@each $icon in (foo, bar, baz) {
+    .icon-$(icon) {
+        background: url('icons/$(icon).png');
+    }
+}
+
+
+@define-mixin icon $name {
+    padding-left: 16px;
+
+    &::after {
+        content: "";
+        background-url: url(/icons/$(name).png);
+    }
+}
+
+.search {
+    @mixin icon search;
+}
+
+
+@define-extend bg-green {
+    background: green;
+}
+
+.notice--clear {
+    @extend bg-green;
+}
+
+.phone {
+  width: 100px;
+  &.text {
+  	font-size: 12px;
+  }
+  &:hover, 
+  &:active {
+  	color: red;
+  }
+}
+
+
+

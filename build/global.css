@@ -1,0 +1,97 @@
+.normalize {
+	color: #100;
+}
+.car {
+	color: yellow;
+	margin-top: 125px;
+}
+
+
+/* prefix */
+.test {
+	opacity: 1;
+}
+
+a {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    border-radius: 10px;
+}
+
+a {
+    border-radius: 5px;
+}
+
+
+
+/* precss */
+
+.menu {
+    width: calc(4 * 200px)
+}
+
+@media all and (-webkit-min-device-pixel-ratio:0) and (min-resolution: .001dpcm) {
+	.menu {
+		margin: 10px;
+	}
+    }
+
+.menu_link {
+    background: #056ef0;
+    width: 200px;
+}
+
+.b-1 {
+	width: 1px;
+}
+
+.b-2 {
+	width: 2px;
+}
+
+.b-3 {
+	width: 3px;
+}
+
+.icon-foo {
+	background: url('icons/foo.png');
+}
+
+.icon-bar {
+	background: url('icons/bar.png');
+}
+
+.icon-baz {
+	background: url('icons/baz.png');
+}
+
+.search {
+    padding-left: 16px;
+}
+
+.search::after {
+	content: "";
+	background-url: url(/icons/search.png);
+}
+
+
+.notice--clear {
+    background: green;
+}
+
+.phone {
+  width: 100px
+}
+
+.phone:hover, .phone:active {
+	color: red;
+}
+
+.phone.text {
+	font-size: 12px;
+}
+
+
+

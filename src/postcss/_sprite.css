@@ -1,0 +1,47 @@
+/*
+Icon classes can be used entirely standalone. They are named after their original file names.
+
+```html
+<!-- `display: block` sprite -->
+<div class="icon-home"></div>
+
+<!-- `display: inline-block` sprite -->
+<img class="icon-home" />
+```
+*/
+.icon-icon_phone {
+  background-image: url(../img/sprite.e75c7540.png);
+  background-position: -303px -29px;
+  width: 19px;
+  height: 16px;
+}
+.icon-kv_cloud1 {
+  background-image: url(../img/sprite.e75c7540.png);
+  background-position: -256px 0px;
+  width: 184px;
+  height: 29px;
+}
+.icon-kv_moon_w {
+  background-image: url(../img/sprite.e75c7540.png);
+  background-position: -256px -29px;
+  width: 47px;
+  height: 53px;
+}
+.icon-kv_moon_w@2x {
+  background-image: url(../img/sprite.e75c7540.png);
+  background-position: -162px 0px;
+  width: 94px;
+  height: 106px;
+}
+.icon-kv_sun_w {
+  background-image: url(../img/sprite.e75c7540.png);
+  background-position: 0px -162px;
+  width: 81px;
+  height: 81px;
+}
+.icon-kv_sun_w@2x {
+  background-image: url(../img/sprite.e75c7540.png);
+  background-position: 0px 0px;
+  width: 162px;
+  height: 162px;
+}

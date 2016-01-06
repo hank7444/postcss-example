@@ -84,33 +84,91 @@ var watchStatus = {
 };
 
 
-gulp.task('ejs-watch', function() {
-    gulp.watch(filefolder.ejs.all, function(e) {
-
-        if (e.type !== 'deleted') {
-
-            /*
-      var configGlobal = JSON.parse(fs.readFileSync(filefolder.config.configGlobal));
-      var configDev = JSON.parse(fs.readFileSync(filefolder.config.configDev));
-      var configEjs = JSON.parse(fs.readFileSync(filefolder.config.ejsData));
-      var config = extend(configEjs, configDev, configGlobal, {});
-      */
-
-            gulp.src(filefolder.ejs.all)
-                .pipe(plumber())
-                .pipe(ejs())
-                .on('error', gutil.log)
-                .pipe(gulp.dest(filefolder.html.dest))
-                .pipe(reload({
-                    stream: true
-                }));
-
-            gulp.src(filefolder.ejs.removeHtmlEjs)
-                .pipe(clean());
-
-        }
-    });
+// 產生sprite與對應的css
+gulp.task('sprite-gen', function() {
+  var spritesmith = require('gulp.spritesmith');
+  return gulp.src('src/img/sprite/*.png')
+            .pipe(plumber())
+            .pipe(spritesmith({
+              imgName: 'sprite.png',
+              cssName: 'sprite.css',
+            }))
+            .pipe(gulp.dest('src/spriteTmp'));
 });
+
+// sprite檔名加上hash
+gulp.task('sprite-cachebust', ['sprite-gen'], function() {
+
+  var gulpFilter = require('gulp-filter');
+  var CacheBuster = require('gulp-cachebust');
+  var cachebust = new CacheBuster();
+
+  // 將新的sprite檔案加上hash
+  gulp.src('src/spriteTmp/sprite.png')
+      .pipe(plumber())
+      .pipe(cachebust.resources())
+      .pipe(gulp.dest('src/spriteTmp'));
+
+  // 刪除sprite.png
+  return gulp.src('src/spriteTmp/sprite.png')
+      .pipe(plumber())
+      .pipe(clean({
+        force: true
+      }));
+});
+
+// 將css引用sprite位置修改
+gulp.task('sprite-replacePath', ['sprite-cachebust'], function() {
+
+  var rename = require("gulp-rename");
+  var tap = require('gulp-tap');
+  var gulpFilter = require('gulp-filter');
+
+  return gulp.src('src/spriteTmp/*.png') 
+    .pipe(tap(function(file, t) {
+
+      var match = file.path.match(/(sprite\.(.*)+\.png)$/);
+      var regex = new RegExp('sprite\.' + match[2] +'\.png');
+
+      console.log('regex', regex);
+
+      gulp.src('src/spriteTmp/sprite.css')
+        .pipe(plumber())
+        .pipe(replace(/(sprite.*\.png)/g, '../img/sprite.' + match[2] + '.png'))
+        .pipe(rename(function(path) {
+          path.basename = "_sprite"
+        }))
+        .pipe(gulp.dest('src/postcss'));
+
+      gulp.src('src/img/*.png')
+      .pipe(plumber())
+      .pipe(gulpFilter(function(file) {
+        return /sprite\..*\.png$/.test(file.path) && !regex.test(file.path);
+      }))
+      .pipe(clean({
+        force: true
+      }));
+
+    })).pipe(gulp.dest('src/img'));
+}); 
+
+// 清除sprite temp資料夾
+gulp.task('sprite-cleanTmp', ['sprite-replacePath'], function() {
+  return gulp.src('src/spriteTmp').pipe(clean({
+    force: true
+  }));
+});
+
+// 不一定要使用，webpack可設定將圖片轉為base64 encode
+gulp.task('sprite-watch', function() {
+  gulp.watch(['src/img/sprite/*.png'], ['sprite-cleanTmp']);
+});
+
+gulp.task('sprite', function(cb) {
+    runSequence('sprite-watch', 'sprite-cleanTmp');
+});
+
+
 
 
 gulp.task('postcss-watch', function () {
@@ -123,6 +181,10 @@ gulp.task('postcss-watch', function () {
     var autoprefixer = require('autoprefixer'); 
     var precss = require('precss'); // like sass, have nested, mixin, extend
     var lost = require('lost'); // grid system
+    var assets  = require('postcss-assets'); // image-size, inline file
+    var at2x = require('postcss-at2x');
+    var sprites = require('postcss-sprites'); // sprite
+    var url = require("postcss-url")
     //var nested = require('postcss-nested');
 
 
@@ -134,14 +196,67 @@ gulp.task('postcss-watch', function () {
             return !/_.*\.css$/.test(file.path);
           }))
           .pipe(postcss([
-            //nested,
             autoprefixer({ browsers: [
               '> 2%',
               'last 2 versions',
               'ie >= 10'
             ]}), 
             precss,
-            lost()
+            /*
+            assets({
+              basePath: 'src/',
+              //cachebuster: true,
+              relativeTo: 'img',
+              //loadPaths: ['img/']
+            }),
+            */
+            lost(),
+            /*
+            sprites({
+              stylesheetPath: './src/css',
+              spritePath: './src/img/sprite.png',
+              retina: true,
+              verbose: false,
+              filterBy: function(image) {
+                return /\.png$/gi.test(image.url);
+              }
+            }),
+            */
+            /*
+            url({
+              url: 'inline',
+              basePath: 'src',
+              //assetsPath: './src/img',
+              useHash: true
+            })
+            */
+            /*
+            sprites({
+              stylesheetPath: 'src/css',
+              spritePath: 'src/img/sprite.png',
+              retina: true,
+              verbose: false,
+              filterBy: function(image) {
+
+                console.log('image', image);
+                return /\.png$/gi.test(image.url);
+              }
+            }),
+            */
+            
+            assets({
+              basePath: 'src',
+              //baseUrl: 'src/img',
+              //cachebuster: true,
+              relativeTo: 'src/css',
+              loadPaths: ['img/']
+            }),
+
+            at2x({
+              identifier: '@2x'
+            })
+            
+          
           ]))
           //.pipe(sourcemaps.write('.'))
           /*
@@ -152,10 +267,26 @@ gulp.task('postcss-watch', function () {
           }))
           */
 
-          .pipe(gulp.dest('build/'));
+          .pipe(gulp.dest('src/css'));
 
     });
 });
+
+gulp.task('postcss', ['sprite', 'postcss-watch']);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // css

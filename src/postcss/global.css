@@ -1,5 +1,6 @@
 @import "normalize";
 @import "./folder/car";
+@import "sprite";
 
 
 /* prefix */
@@ -77,6 +78,46 @@ $column: 200px;
   &:active {
   	color: red;
   }
+}
+
+
+/* assets */
+/*
+body {
+  background: resolve('action_2_w.png');
+  width: width('action_2_w.png');
+  height: height('action_2_w.png');
+}
+
+body {
+  background: inline('action_2_w.png');
+}
+*/
+
+/* at-2x */
+.logo {
+  background: red resolve('action_2_w.png') no-repeat 0 0 at-2x;
+  width: 200px;
+  height: 200px;
+}
+
+
+/* sprite */
+.test-sprite {
+  background: red url('../img/sprite/kv_sun_w.png') no-repeat 0 0;
+}
+
+.test-sprite-2x { 
+  background: url('../img/kv_sun_w@2x.png') no-repeat 0 0;
+}
+
+
+.test-sprite-moon {
+  background: red resolve('sprite/kv_moon_w.png') no-repeat 0 0;
+}
+
+.test-sprite-moon-2x { 
+  background: resolve('sprite/kv_moon_w@2x.png') no-repeat 0 0;
 }
 
 

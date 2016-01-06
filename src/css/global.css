@@ -1,0 +1,190 @@
+.normalize {
+	color: #100;
+}
+.car {
+	color: yellow;
+	margin-top: 125px;
+}
+/*
+Icon classes can be used entirely standalone. They are named after their original file names.
+
+```html
+<!-- `display: block` sprite -->
+<div class="icon-home"></div>
+
+<!-- `display: inline-block` sprite -->
+<img class="icon-home" />
+```
+*/
+.icon-icon_phone {
+	background-image: url(../img/sprite.e75c7540.png);
+	background-position: -303px -29px;
+	width: 19px;
+	height: 16px;
+}
+.icon-kv_cloud1 {
+	background-image: url(../img/sprite.e75c7540.png);
+	background-position: -256px 0px;
+	width: 184px;
+	height: 29px;
+}
+.icon-kv_moon_w {
+	background-image: url(../img/sprite.e75c7540.png);
+	background-position: -256px -29px;
+	width: 47px;
+	height: 53px;
+}
+.icon-kv_moon_w@2x {
+	background-image: url(../img/sprite.e75c7540.png);
+	background-position: -162px 0px;
+	width: 94px;
+	height: 106px;
+}
+.icon-kv_sun_w {
+	background-image: url(../img/sprite.e75c7540.png);
+	background-position: 0px -162px;
+	width: 81px;
+	height: 81px;
+}
+.icon-kv_sun_w@2x {
+	background-image: url(../img/sprite.e75c7540.png);
+	background-position: 0px 0px;
+	width: 162px;
+	height: 162px;
+}
+
+
+/* prefix */
+.test {
+	opacity: 1;
+}
+
+a {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    border-radius: 10px;
+}
+
+a {
+    border-radius: 5px;
+}
+
+
+
+/* precss */
+
+.menu {
+    width: calc(4 * 200px)
+}
+
+@media all and (-webkit-min-device-pixel-ratio:0) and (min-resolution: .001dpcm) {
+	.menu {
+		margin: 10px;
+	}
+    }
+
+.menu_link {
+    background: #056ef0;
+    width: 200px;
+}
+
+.b-1 {
+	width: 1px;
+}
+
+.b-2 {
+	width: 2px;
+}
+
+.b-3 {
+	width: 3px;
+}
+
+.icon-foo {
+	background: url('icons/foo.png');
+}
+
+.icon-bar {
+	background: url('icons/bar.png');
+}
+
+.icon-baz {
+	background: url('icons/baz.png');
+}
+
+.search {
+    padding-left: 16px;
+}
+
+.search::after {
+	content: "";
+	background-url: url(/icons/search.png);
+}
+
+
+.notice--clear {
+    background: green;
+}
+
+.phone {
+  width: 100px
+}
+
+.phone:hover, .phone:active {
+	color: red;
+}
+
+.phone.text {
+	font-size: 12px;
+}
+
+
+/* assets */
+/*
+body {
+  background: resolve('action_2_w.png');
+  width: width('action_2_w.png');
+  height: height('action_2_w.png');
+}
+
+body {
+  background: inline('action_2_w.png');
+}
+*/
+
+/* at-2x */
+.logo {
+  background: red url('../img/action_2_w.png') no-repeat 0 0;
+  width: 200px;
+  height: 200px;
+}
+
+
+/* sprite */
+.test-sprite {
+  background: red url('../img/sprite/kv_sun_w.png') no-repeat 0 0;
+}
+
+.test-sprite-2x { 
+  background: url('../img/kv_sun_w@2x.png') no-repeat 0 0;
+}
+
+
+.test-sprite-moon {
+  background: red url('../img/sprite/kv_moon_w.png') no-repeat 0 0;
+}
+
+.test-sprite-moon-2x { 
+  background: url('../img/sprite/kv_moon_w@2x.png') no-repeat 0 0;
+}
+
+@media (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3/2), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
+	.logo {
+		background: red url('../img/action_2_w@2x.png') no-repeat 0 0;
+	}
+}
+
+
+

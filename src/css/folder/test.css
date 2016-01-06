@@ -1,0 +1,9 @@
+/* assets */
+
+/*
+fuck!
+如果在資料夾內的css使用了圖片, 產生出來的css不會自動變成../../這種形式
+*/
+.logo {
+  background: url('../img/action_2_w.png');
+}

@@ -54,6 +54,9 @@ $column: 200px;
         content: "";
         background-url: url(/icons/$(name).png);
     }
+    &::before {
+      height: 100px;
+    }
 }
 
 .search {
@@ -82,7 +85,7 @@ $column: 200px;
 
 
 /* assets */
-/*
+
 body {
   background: resolve('action_2_w.png');
   width: width('action_2_w.png');
@@ -92,7 +95,6 @@ body {
 body {
   background: inline('action_2_w.png');
 }
-*/
 
 /* at-2x */
 .logo {
@@ -101,24 +103,6 @@ body {
   height: 200px;
 }
 
-
-/* sprite */
-.test-sprite {
-  background: red url('../img/sprite/kv_sun_w.png') no-repeat 0 0;
-}
-
-.test-sprite-2x { 
-  background: url('../img/kv_sun_w@2x.png') no-repeat 0 0;
-}
-
-
-.test-sprite-moon {
-  background: red resolve('sprite/kv_moon_w.png') no-repeat 0 0;
-}
-
-.test-sprite-moon-2x { 
-  background: resolve('sprite/kv_moon_w@2x.png') no-repeat 0 0;
-}
 
 
 

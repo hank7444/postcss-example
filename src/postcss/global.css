@@ -59,8 +59,28 @@ $column: 200px;
     }
 }
 
+@define-mixin clearfix {
+  &:before {
+    content: "";
+    display: table;
+  }
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  zoom: 1;
+}
+
+
 .search {
     @mixin icon search;
+}
+
+.text-clearfix {
+  @mixin clearfix;
+  width: 100px;
+  height: 100px;
 }
 
 

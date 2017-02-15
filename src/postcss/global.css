@@ -104,5 +104,12 @@ body {
 }
 
 
+/* 用precss可以做 */
+$breakpoint-500: screen and (min-width: 100px) and (max-width: 441114px);
 
-
+.logo2, .aaa {
+  @media $breakpoint-500 {
+    /* styles for small viewport */
+    font-size: 14px;
+  }
+}
